@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Login{% endblock %}
+
+
+{% block content %}
+<div class="md-page">
+  <div class="md-card">
+    <div class="md-header">
+      <span class="material-symbols-outlined">lock</span>
+      <h2 class="md-title">Iniciar sesión</h2>
+    </div>
+
+    {% if form.non_field_errors %}
+      <div class="md-nonfield">
+        {{ form.non_field_errors }}
+      </div>
+    {% endif %}
+
+    <form method="post" class="md-form" onpointerdown="(e=>{const b=e.target.closest('.md-button'); if(!b) return; const r=b.getBoundingClientRect(); b.style.setProperty('--x', (e.clientX-r.left)+'px'); b.style.setProperty('--y', (e.clientY-r.top)+'px');})(event)">
+      {% csrf_token %}
+
+      {{ form.as_p }}
+
+      <button type="submit" class="md-button">
+        <span class="material-symbols-outlined">login</span>
+        Entrar
+      </button>
+
+      <div class="md-actions">
+        <a href="{% url 'password_reset' %}" class="md-link">¿Olvidaste tu contraseña?</a>
+        <a href="{% url 'signup' %}" class="md-link">Crear cuenta</a>
+      </div>
+    </form>
+  </div>
+</div>
+{% endblock %}

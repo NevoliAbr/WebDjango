@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+
+{% block title %}Inicio{% endblock %}
+
+{% block content %}
+<div class="md-page">
+  <div class="md-card">
+    <div class="md-header">
+      <h2 class="md-title">¡Bienvenido!</h2>
+    </div>
+    <p>Has iniciado sesión correctamente.</p>
+    <br>
+    <a href="{% url 'logout' %}" class="md-button">Cerrar sesión</a>
+  </div>
+</div>
+{% endblock %}

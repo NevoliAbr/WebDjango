@@ -1,3 +1,3 @@
 #!/bin/sh
 source .venv/bin/activate
-python -u -m flask --app main run -p $PORT --debug
+python manage.py runserver 0.0.0.0:${PORT:-8000}

@@ -1,0 +1,101 @@
+/* Applying styles to the existing Material Design-like structure */
+body {
+    font-family: sans-serif;
+    background-color: #f4f4f4;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+}
+
+.md-card {
+    background-color: white;
+    padding: 2rem;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    width: 100%;
+    max-width: 400px;
+    text-align: center;
+}
+
+.md-header {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 1.5rem;
+}
+
+.md-title {
+    margin: 0 0 0 0.5rem; /* Remove default margin and add some space next to the icon */
+    color: #333;
+}
+
+.md-form {
+    display: flex;
+    flex-direction: column;
+}
+
+.md-form p {
+    display: flex;
+    flex-direction: column;
+    text-align: left;
+    margin-bottom: 1rem;
+}
+
+.md-form label {
+    margin-bottom: 0.5rem;
+    color: #555;
+}
+
+.md-form input {
+    padding: 0.75rem;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 1rem;
+}
+
+.md-button {
+    background-color: #007bff;
+    color: white;
+    padding: 0.75rem;
+    border: none;
+    border-radius: 4px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem; /* Space between icon and text */
+}
+
+.md-button:hover {
+    background-color: #0056b3;
+}
+
+.md-actions {
+    margin-top: 1rem;
+    display: flex;
+    justify-content: space-between;
+}
+
+.md-actions .md-link {
+    color: #007bff;
+    text-decoration: none;
+    font-size: 0.9rem;
+}
+
+.md-actions .md-link:hover {
+    text-decoration: underline;
+}
+
+.md-nonfield {
+    color: #dc3545; /* A standard error color */
+    background-color: #f8d7da;
+    border: 1px solid #f5c6cb;
+    border-radius: 4px;
+    padding: 0.75rem;
+    margin-bottom: 1rem;
+    text-align: left;
+}
