@@ -1,0 +1,91 @@
+{% extends 'base.html' %}
+
+{% block title %}Iniciar Sesión{% endblock %}
+
+{% block content %}
+<div class="login-container">
+  <div class="login-card">
+    <h1 class="login-title">Iniciar Sesión</h1>
+    <p class="login-subtitle">Bienvenido de nuevo. Ingresa a tu cuenta de administrador.</p>
+
+    <form method="post">
+      {% csrf_token %}
+      
+      <div class="form-field">
+        <label for="id_username">Usuario:</label>
+        {{ form.username }}
+      </div>
+      
+      <div class="form-field">
+        <label for="id_password">Contraseña:</label>
+        {{ form.password }}
+      </div>
+
+      <button type="submit" class="login-button">Entrar</button>
+    </form>
+
+    <div class="login-footer">
+      <p>¿No tienes una cuenta? <a href="{% url 'register' %}">Regístrate aquí</a></p>
+    </div>
+  </div>
+</div>
+
+<style>
+  .login-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 2rem;
+    min-height: 70vh;
+  }
+  .login-card {
+    width: 100%;
+    max-width: 400px;
+    padding: 2.5rem;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+  }
+  .login-title {
+    text-align: center;
+    font-size: 1.8rem;
+    margin-bottom: 0.5rem;
+  }
+  .login-subtitle {
+    text-align: center;
+    color: #666;
+    margin-bottom: 2rem;
+  }
+  .form-field {
+    margin-bottom: 1.5rem;
+  }
+  .form-field label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-weight: 500;
+  }
+  .form-field input {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 1rem;
+  }
+  .login-button {
+    width: 100%;
+    padding: 12px;
+    font-size: 1.1rem;
+    color: white;
+    background-color: #007bff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-top: 1rem;
+  }
+  .login-footer {
+    text-align: center;
+    margin-top: 1.5rem;
+    font-size: 0.9rem;
+  }
+</style>
+{% endblock %}

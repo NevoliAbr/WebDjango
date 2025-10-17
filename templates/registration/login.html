@@ -1,38 +1,49 @@
-{% extends 'base.html' %}
-{% load static %}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  {% load static %}
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Login</title>
 
-{% block title %}Login{% endblock %}
+  {# Fuentes e íconos Material #}
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght@400" rel="stylesheet">
 
+  {# Hoja de estilos principal #}
+  <link rel="stylesheet" href="{% static 'css/main.css' %}">
+</head>
+<body class="body-login">
+  <main>
+    <div class="md-page">
+      <div class="md-card">
+        <div class="md-header">
+          <span class="material-symbols-outlined">lock</span>
+          <h2 class="md-title">Iniciar sesión</h2>
+        </div>
 
-{% block content %}
-<div class="md-page">
-  <div class="md-card">
-    <div class="md-header">
-      <span class="material-symbols-outlined">lock</span>
-      <h2 class="md-title">Iniciar sesión</h2>
+        {% if form.non_field_errors %}
+          <div class="md-nonfield">
+            {{ form.non_field_errors }}
+          </div>
+        {% endif %}
+
+        <form method="post" class="md-form" onpointerdown="(e=>{const b=e.target.closest('.md-button'); if(!b) return; const r=b.getBoundingClientRect(); b.style.setProperty('--x', (e.clientX-r.left)+'px'); b.style.setProperty('--y', (e.clientY-r.top)+'px');})(event)">
+          {% csrf_token %}
+
+          {{ form.as_p }}
+
+          <button type="submit" class="md-button">
+            <span class="material-symbols-outlined">login</span>
+            Entrar
+          </button>
+
+          <div class="md-actions">
+            <a href="{% url 'password_reset' %}" class="md-link">¿Olvidaste tu contraseña?</a>
+          </div>
+        </form>
+      </div>
     </div>
-
-    {% if form.non_field_errors %}
-      <div class="md-nonfield">
-        {{ form.non_field_errors }}
-      </div>
-    {% endif %}
-
-    <form method="post" class="md-form" onpointerdown="(e=>{const b=e.target.closest('.md-button'); if(!b) return; const r=b.getBoundingClientRect(); b.style.setProperty('--x', (e.clientX-r.left)+'px'); b.style.setProperty('--y', (e.clientY-r.top)+'px');})(event)">
-      {% csrf_token %}
-
-      {{ form.as_p }}
-
-      <button type="submit" class="md-button">
-        <span class="material-symbols-outlined">login</span>
-        Entrar
-      </button>
-
-      <div class="md-actions">
-        <a href="{% url 'password_reset' %}" class="md-link">¿Olvidaste tu contraseña?</a>
-        <a href="{% url 'signup' %}" class="md-link">Crear cuenta</a>
-      </div>
-    </form>
-  </div>
-</div>
-{% endblock %}
+  </main>
+</body>
+</html>

@@ -1,0 +1,88 @@
+{% extends 'base.html' %}
+
+{% block title %}Consulta de Trabajos{% endblock %}
+
+{% block content %}
+<div class="dashboard-header">
+  <h1 class="dashboard-title">Consulta de Trabajos</h1>
+  <div class="filter-pills">
+    <a href="{% url 'consulta' %}?rango=hoy" class="pill-btn {% if rango_seleccionado == 'hoy' %}active{% endif %}">Hoy</a>
+    <a href="{% url 'consulta' %}?rango=semana" class="pill-btn {% if rango_seleccionado == 'semana' %}active{% endif %}">Esta Semana</a>
+    <a href="{% url 'consulta' %}?rango=mes" class="pill-btn {% if rango_seleccionado == 'mes' %}active{% endif %}">Este Mes</a>
+  </div>
+</div>
+
+<div class="moto-grid">
+  {% for moto in lista_motos %}
+    <div class="moto-card">
+      {% if moto.imagen %}
+        <img src="{{ moto.imagen.url }}" alt="Imagen de {{ moto.modelo }}" class="moto-image">
+      {% endif %}
+      <div class="moto-card-content">
+        <h3 class="moto-model">{{ moto.modelo }}</h3>
+        <p class="moto-owner"><strong>Propietario:</strong> {{ moto.propietario }}</p>
+        <p class="moto-assigned"><strong>Asignado a:</strong> {{ moto.asignado }}</p>
+        <p class="moto-date"><strong>Fecha de inicio:</strong> {{ moto.fecha_inicio_trabajo|date:"d/m/Y" }}</p>
+        
+        <div class="moto-pricing">
+          <p><strong>Mano de obra:</strong> ${{ moto.precio_mano_obra }}</p>
+          <p><strong>Accesorios:</strong> ${{ moto.precio_accesorios }}</p>
+          <p><strong>Pago inicial:</strong> ${{ moto.pago_inicial }}</p>
+        </div>
+
+        {% if moto.activo %}
+            <a href="{% url 'terminar_trabajo' moto_id=moto.id %}" class="finish-work-btn">Terminar Trabajo</a>
+        {% else %}
+            <span class="work-finished-label">Trabajo Finalizado</span>
+        {% endif %}
+      </div>
+    </div>
+  {% empty %}
+    <div class="no-motos-message">
+      <p>No se encontraron trabajos iniciados en el período seleccionado.</p>
+      <p>Prueba a seleccionar otro rango de fechas o agrega una nueva moto.</p>
+    </div>
+  {% endfor %}
+</div>
+
+<style>
+.filter-pills {
+  display: flex;
+  gap: 10px;
+}
+
+.pill-btn {
+  padding: 8px 16px;
+  border-radius: 20px;
+  background-color: #f0f0f0;
+  color: #333;
+  text-decoration: none;
+  font-weight: 500;
+  transition: all 0.2s ease-in-out;
+}
+
+.pill-btn.active {
+  background-color: #007bff;
+  color: white;
+}
+
+.pill-btn:hover {
+    background-color: #e0e0e0;
+}
+
+.pill-btn.active:hover {
+    background-color: #0056b3;
+}
+
+.work-finished-label {
+    display: block;
+    text-align: center;
+    padding: 10px;
+    background-color: #dc3545; /* Cambiado a rojo */
+    color: white;
+    border-radius: 5px;
+    margin-top: 15px;
+    font-weight: 500;
+}
+</style>
+{% endblock %}

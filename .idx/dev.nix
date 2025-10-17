@@ -1,32 +1,31 @@
-# To learn more about how to use Nix to configure your environment
-# see: https://developers.google.com/idx/guides/customize-idx-env
 { pkgs, ... }: {
-  # Which nixpkgs channel to use.
-  channel = "stable-24.05"; # or "unstable"
-  # Use https://search.nixos.org/packages to find packages
-  packages = [ pkgs.python3 ];
-  idx = {
-    # Search for the extensions you want on https://open-vsx.org/ and use "publisher.id"
-    extensions = [ "ms-python.python" ];
-    workspace = {
-      # Runs when a workspace is first created with this `dev.nix` file
-      onCreate = {
-        install =
-          "python -m venv .venv && source .venv/bin/activate && pip install -r requirements.txt";
-        # Open editors for the following files by default, if they exist:
-        default.openFiles = [ "README.md" "src/index.html" "main.py" ];
-      }; # To run something each time the workspace is (re)started, use the `onStart` hook
-    };
-    # Enable previews and customize configuration
-    previews = {
-      enable = true;
-      previews = {
-        web = {
-          command = [ "./devserver.sh" ];
-          env = { PORT = "$PORT"; };
-          manager = "web";
-        };
-      };
-    };
+  # Let Nix handle Python, Poetry, and their dependencies
+  # For more details, see https://developer.hashicorp.com/waypoint/tutorials/nix/nix-language
+  packages = [
+    pkgs.python3
+    pkgs.python3Packages.venvShellHook
+  ];
+  env = {
+    FLASK_APP = "app.py";
+    FLASK_DEBUG = "1";
+    LC_ALL = "C.UTF-8";
+    LANG = "C.UTF-8";
   };
+
+  # The Go, Node.js, and Python language servers are currently builtin.
+  # See https://www.jetpack.io/devbox/docs/ide_configuration/
+  languages.python.enable = true;
+
+  # To run a command whenever the environment is created or updated, use the
+  # 'scripts.update.exec' attribute.
+  # For more details, see https://www.jetpack.io/devbox/docs/configuration/
+  scripts.update.exec = "python -m venv .venv && .venv/bin/pip install -r requirements.txt";
+
+  # To run a command when the project is first created, use the
+  # 'scripts.create.exec' attribute.
+  # For more details, see https://www.jetpack.io/devbox/docs/configuration/
+  scripts.create.exec = "echo 'Hello, World!'";
+
+  # Service to start MongoDB on workspace open is now disabled
+  # services.mongodb.enable = true;
 }
